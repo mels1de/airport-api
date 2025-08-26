@@ -18,6 +18,9 @@ class UserRepository(ABC):
     @abstractmethod
     async def create_raw(self, data:dict):
         ...
+    @abstractmethod
+    async def get_db_user_by_email(self,email: str):
+        ...
 
 class SQLAlchemyUserRepository(UserRepository):
 
@@ -44,3 +47,7 @@ class SQLAlchemyUserRepository(UserRepository):
             raise ValueError("Email or username already registered")
         await self.session.refresh(obj)
         return obj.to_public_dict()
+
+    async def get_db_user_by_email(self,email: str):
+        res = await self.session.execute(select(DBUser).where(DBUser.email == email))
+        return res.scalar_one_or_none()

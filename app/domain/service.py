@@ -1,6 +1,5 @@
-from typing import List
 from uuid import UUID
-from app.domain.models import Airport,AirportCreate
+from app.domain.airport_schema import Airport,AirportCreate
 from app.adapters.repositories.airport import AirportRepository
 
 class AirportService:

@@ -29,12 +29,13 @@ class AirportRepository(ABC):
 class SQLAlchemyAirportRepository(AirportRepository):
     def __init__(self,session: AsyncSession):
         self.session = session
+
     async def list(self,limit: int = 100, offset: int = 0) -> List[dict]:
         result = await self.session.execute(
             select(DBAirport).limit(limit).offset(offset)
         )
         rows = result.scalars().all()
-        return [row.to_dict for row in rows]
+        return [row.to_dict() for row in rows]
 
     async def get(self, airport_id: UUID) -> Optional[dict]:
         obj = await self.session.get(DBAirport, airport_id)

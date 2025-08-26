@@ -12,5 +12,13 @@ class UserRead(BaseModel):
     username: str
     role: str = "user"
 
+class TokenPair(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str = "bearer"
+
+class TokenRefreshIn(BaseModel):
+    refresh_token: str
+
     class Config:
-        orm_mode = True
+        from_attributes = True

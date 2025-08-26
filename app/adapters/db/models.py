@@ -39,6 +39,7 @@ class User(Base):
         return {
             "id": str(self.id),
             "email": self.email,
+            "username": self.username,
             "role": self.role,
-            "created_at": self.created_at.isoformat() if self.created else None
+            "created_at": self.created_at.isoformat() if self.created_at else None
         }
